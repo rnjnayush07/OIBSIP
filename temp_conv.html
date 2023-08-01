@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TEMPERATURE CONVERTER</title>
+    <style>
+      img{
+        width: 125px;
+        height: 125px;
+        margin:auto;
+     }
+      html,body {
+        height: 100%;
+      }
+      body {
+        display: grid;
+        place-content: center;
+        background: hwb(30 45% 7%);
+      }
+      main {
+        border-radius: 10px;
+        background-color: hwb(350 36% 18%);
+        box-shadow: 2px 2px 5px hsl(24, 93%, 67%);
+        padding: 2rem;
+      }
+      #form {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        align-items: center;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      .convert {
+        all: unset;
+        color: rgb(255, 255, 255);
+        background-color: hsl(0, 4%, 27%);
+        font-weight: bold;
+        padding: 0.25rem 0.25rem;
+        cursor: pointer;
+        margin:auto;
+      }
+      input,select {
+        margin-block-end: 1rem;
+        font-size: 2rem;
+      }
+      .label {
+        color: hsl(0, 3%, 45%);
+        font-size: 0.75rem;
+      }
+      label {
+        gap: 0.5rem;
+        display: flex;
+        flex-direction: column;
+      }
+      .result {
+        font-size: 1.5rem;
+        font-weight: bolder;
+        color:white;
+      }
+    </style>
+  </head>
+  <body>
+    <img src="https://media.istockphoto.com/id/1281219402/vector/thermometer-cartoon-illustration-isolated-on-white-meteorology-thermostat-vector-icon.jpg?s=170667a&w=0&k=20&c=fmaJnLgyA3SrLbq9-x3D4-43xsr_Wj9eC5srz2hReMM=" >
+    <br>
+    <h1 align="center"><em>Temperature Converter</em></h1>
+    <br>
+    <main>
+      <form id="form">
+        <label class="label">
+           <font color="white" size="+2">Degrees:</font>
+          <input
+            type="text"
+            id="degrees"
+            pattern="[0-9\.]+"
+            required
+            title="Numbers Only"
+          />
+        </label>
+        <label class="label"
+          ><font color="white" size="+2">Type:</font>
+          <select name="type" id="type" required>
+            <option value="c" selected>Celsius</option>
+            <option value="f">Fahrenheit</option>
+            <option value="k">Kelvin</option>
+          </select>
+        </label>
+        <button class="convert">Convert</button>
+      </form>
+      <p class="label"><font color="white" size="+2">Result:</font></p>
+      <p class="result" id="resultOne"></p>
+      <p class="result" id="resultTwo"></p>
+    </main>
+    <script>
+      const form = document.querySelector("#form");
+      console.log("HEloo1");
+      form.addEventListener("submit", (e) => {
+        console.log("HEloo2");
+        e.preventDefault();
+        console.log("HEloo3");
+        const resultOne = document.querySelector("#resultOne");
+        const resultTwo = document.querySelector("#resultTwo");
+        let type = document.querySelector("#type").value;
+        let degrees = document.querySelector("#degrees").value;
+        degrees = parseFloat(degrees);
+        if (type === "c") {
+          console.log("HEloo4");
+          console.log(convertToFahrenheit(degrees, "c"));
+          console.log(convertToKelvin(degrees, "c"));
+          resultOne.innerText = convertToFahrenheit(degrees, "c");
+          resultTwo.innerText = convertToKelvin(degrees, "c");
+        } else if (type === "f") {
+          console.log("HEloo4");
+          console.log(convertTocelsius(degrees, "c"));
+          console.log(convertToKelvin(degrees, "c"));
+          resultOne.innerText = convertTocelsius(degrees, "f");
+          resultTwo.innerText = convertToKelvin(degrees, "f");
+        } else {
+          console.log("HEloo4");
+          console.log(convertTocelsius(degrees, "c"));
+          console.log(convertToFahrenheit(degrees, "c"));
+          resultOne.innerText = convertTocelsius(degrees, "k");
+          resultTwo.innerText = convertToFahrenheit(degrees, "k");
+        }
+      });
+      const convertTocelsius = (value, from) => {
+        if (from === "f") {
+          return `${((value - 32) * (5 / 9)).toFixed(2)} C`;
+        } else {
+          return `${(value - 273.15).toFixed(2)} C`;
+        }
+      };
+      const convertToFahrenheit = (value, from) => {
+        if (from === "c") {
+          return `${(value * 1.8 + 32).toFixed(2)} F`;
+        } else {
+          return `${((value * 9) / 5 - 459.67).toFixed(2)} F`;
+        }
+      };
+      const convertToKelvin = (value, from) => {
+        if (from === "f") {
+          return `${((value + 459.67) * (5 / 9)).toFixed(2)} K`;
+        } else {
+          return `${(value + 273.15).toFixed(2)} K`;
+        }
+      };
+    </script>
+  </body>
+</html>
